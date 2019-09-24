@@ -1,0 +1,7 @@
+.sidebar-container{    
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    position: relative;
+    background: rgb(45, 88, 58);
+}
