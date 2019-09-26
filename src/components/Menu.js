@@ -10,7 +10,7 @@ class Menu extends Component {
          }
     }
     render() { 
-        return ( <li><Link to={this.state.url}>{this.state.label}</Link></li> );
+        return ( <li className='navigation-list'><Link className="link-navigation" to={this.state.url}>{this.state.label}</Link></li> );
     }
 }
  

@@ -1,33 +1,49 @@
-import { React } from 'react';
-import  Menu  from 'components/Menu'
+import React from 'react'
+import Menu from 'components/Menu'
 
 const Sidebar = () => {
-    const menuList = [
-        {
-            label : 'Home',
-            url : '/'
+    const menuList = [{
+            label: 'Home',
+            url: '/'
         },
         {
-            label : 'About',
-            url : '/about'
+            label: 'About',
+            url: '/about'
         },
         {
-            label : 'Test',
-            url : '/test'
-        }
+            label: 'About',
+            url: '/about'
+        },
+        {
+            label: 'About',
+            url: '/about'
+        },
     ]
 
     let viewMenuObject = [];
-    menuList.forEach((_menu)=>{
-        let element = <Menu label={_menu.label} url={_menu.url}/>;
+    
+    menuList.forEach((_menu) => {    
+        let element = < Menu label = {
+            _menu.label
+        }
+        url = {
+            _menu.url
+        }
+        />;
         viewMenuObject.push(element);
     });
-
+    
     return ( 
-        <div>
-            {this.viewMenuObject}
+        <div className="sidebar">
+            <div className="title-box">
+                <p className='title'>BACK OFFICE</p>
+                <p className='sub-title'>DEVELOPE & STUDY</p>
+            </div>
+            <ul>{viewMenuObject}</ul>
         </div>
     );
+    
+
 }
- 
+
 export default Sidebar;
