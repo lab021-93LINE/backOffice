@@ -19,7 +19,7 @@ const Sidebar = () => {
 
     let viewMenuObject = [];
     menuList.forEach((_menu)=>{
-        var element = <Menu link={_menu.url}>{_menu.label}</Menu>;
+        let element = <Menu label={_menu.label} url={_menu.url}/>;
         viewMenuObject.push(element);
     });
 
