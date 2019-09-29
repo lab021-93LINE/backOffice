@@ -10,36 +10,30 @@ class Login extends React.Component {
         }
     }
 
-
-    handleUserId(id){
-        console.log('id = ',id);
-        this.setState({'userId': id});
-    }
-
-    handleUserPassword(password){
-        console.log('password = ',password);
-        this.setState({'userPassword': password});
-    }
-
+    /**
+     * 로그인 사도 함수
+     */
     onsubmit(){
         // id , password 서버로 보냄
         //페이지 이동
-        console.log('id = ',this.state.userId);
-        console.log('password = ',this.state.userPassword);
+        this.setState({
+            userId: document.getElementById('user-id').value,
+            userPassword: document.getElementById('user-password').value
+        }, ()=>{
+            console.log('id = ',this.state.userId);
+            console.log('password = ',this.state.userPassword);
+        });
     }
 
-    //check id , password
     
-
-
 
     render() {
         return (
             <div className="login-container">
                 <div className="title">Login</div>
                 <div class="login-content">
-                    <input type="text" placeholder="ID" value={this.state.userId} onChange={(e) => this.handleUserId(e.target.value)}/>
-                    <input type="text" placeholder="Password" value={this.state.userPassword} onChange={(e)=> this.handleUserPassword(e.target.value)}/>
+                    <input type="text" placeholder="ID" id="user-id"/>
+                    <input type="text" placeholder="Password" id="user-password"/>
                 </div>
                 <button onClick={() => this.onsubmit()}>SUBMIT</button>
             </div>
