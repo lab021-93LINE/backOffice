@@ -1,0 +1,17 @@
+.meeting{    
+    display: inline-block;
+    background: #ffffff;
+    margin: 2em 1em;
+    padding: 0.5em 1em;
+    border-radius: 1em;   
+    box-shadow: 0.2em 0.2em 0.2em 0 #cccccc;
+}
+
+.meeting .subject{
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.meeting .participants{
+
+}
