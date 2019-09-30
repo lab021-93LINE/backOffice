@@ -7,11 +7,14 @@ class Meeting extends Component {
         }
     }
 
-    render() {         
+    deleteReservation = () => {
+        console.log('hi');
+    }
 
+    render() {         
         return ( 
             <div className="meeting" key='1'>                
-                <p className="subject" key='subject'>{this.props.subject}</p>
+                <p className="subject" key='subject'>{this.props.subject} <span className="icon delete" onClick={()=>this.deleteReservation()}>❌</span></p>
                 <p className="participants" key='participants'>{this.props.participants}</p>
                 <div className="time-box" key='2'>
                     <span className="begin-time" key='begin-time'>{this.props.beginTime}</span>

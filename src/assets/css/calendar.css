@@ -1,0 +1,12 @@
+.calendar-box{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 100vh;
+    overflow: scroll;
+}
+.day-column{
+    margin : 1em 0.5em;
+    border-radius: 0.3em;
+    box-shadow: 0.2em 0.2em 0.2em 0 #bbbbbb;
+    background: #ffffff;
+}
