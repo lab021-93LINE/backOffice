@@ -2,3 +2,9 @@
     background: #ffffff;
    padding: 2em 1em; 
 }
+
+.reservation-box{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+}

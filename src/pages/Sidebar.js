@@ -22,14 +22,9 @@ const Sidebar = () => {
 
     let viewMenuObject = [];
     
+    let count = 0;
     menuList.forEach((_menu) => {    
-        let element = < Menu label = {
-            _menu.label
-        }
-        url = {
-            _menu.url
-        }
-        />;
+        let element = < Menu label = {_menu.label} url = {_menu.url} key={count++}/>;
         viewMenuObject.push(element);
     });
     
