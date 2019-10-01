@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { About, Sidebar, Login } from 'pages';
+import { About, Sidebar, Login, SignIn } from 'pages';
 
 class App extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class App extends Component {
                 <div className='content'>
                     <Route exact path="/" component={Login}/>
                     <Switch>
+                        <Route exact path="/SignIn" component={SignIn}/>
                         <Route path="/about/:name" component={About}/>
                         <Route path="/about" component={About}/>
                     </Switch>
