@@ -1,5 +1,4 @@
 .container{
-    border: 1px solid black;
     text-align: center;
 }
 .container .title{
@@ -9,7 +8,7 @@
 .container .content div{
     margin-top: 10px;
 }
-.container .content label{
-    font-size: 12px;
+.container .content .error{
+    font-size: 13px;
     color: red;
 }
