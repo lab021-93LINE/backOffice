@@ -4,9 +4,30 @@
     grid-auto-rows: 100vh;
     overflow: scroll;
 }
+
+/* Day */
 .day-column{
-    margin : 1em 0.5em;
-    border-radius: 0.3em;
-    box-shadow: 0.2em 0.2em 0.2em 0 #bbbbbb;
+    margin : 1em 0.1em;
+    border-radius: 0.3em;    
     background: #ffffff;
+}
+.day-column .date-text-title{
+    text-align: center;
+}
+
+.day-column .date-text-title .day-of-week{
+    
+}
+
+.is-today{
+   background: black;
+   color: white; 
+}
+
+/* Card */
+.card-box{
+    margin: 0.15em 0.1em;
+    padding: 0.15em 0.3em;
+    background: #dddddd;
+    border-radius: 0.3em;
 }
