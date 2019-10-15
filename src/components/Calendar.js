@@ -16,6 +16,10 @@ export default class Calendar extends Component {
         }
     }
 
+    setCurrentWeek(){
+        
+    }
+
     setCurrentWeek() {
         let current = new Date();
         let week = [];        
@@ -53,34 +57,7 @@ export default class Calendar extends Component {
             day.conferenceList = [];     
             deepCopyModel.push(day);
         }
-
-        // reserveRef.orderByChild('date')
-        // .startAt(this.currentWeek[0].date)
-        // .endAt(this.currentWeek[6].date)
-        // .on('value').then(
-        //     (resolve) => {                
-        //         console.log('resolve: ', resolve);
-        //         let data = resolve.val();
-        //         console.log('data: ', data);
-        //         let _date = data.date;                
-                
-        //         //데이터베이스에서 불러온 데이터의 날짜 값을 비교해서 삽입
-        //         for(let i=0, day; day = deepCopyModel[i]; i++){        
-        //             if(day.date == _date){
-        //                 day.conferenceList.push(data);
-        //             }   
-        //         }
-                
-        //         this.currentWeek = deepCopyModel;
-        //         this.createCalendarElements();
-        //     },
-        //     (reject) => {
-        //         console.log('reject: ', reject);
-        //     }
-        // )
-        
-        
-        
+  
         reserveRef
         .orderByChild('date')
         .startAt(this.currentWeek[0].date)
@@ -88,7 +65,7 @@ export default class Calendar extends Component {
         .on('value',
         (snapshot) => {
             let meetingList = Object.values(snapshot.val());            
-            
+            console.log(snapshot.val())
             for(let i=0; i< meetingList.length; i++){
                 let meeting = meetingList[i];
                 
@@ -100,12 +77,12 @@ export default class Calendar extends Component {
                     }
                 }
             }
-
-            this.currentWeek = deepCopyModel;
+        
+            this.createCalendarElements(deepCopyModel);
            }
         );
         
-        this.createCalendarElements(this.currentWeek);
+        
         
         
     }
@@ -117,7 +94,7 @@ export default class Calendar extends Component {
         
         for(let i=0; i < weekInfo.length; i++){
             let day = weekInfo[i];
-            console.log(day.conferenceList);
+
             
             let el = 
             <Day date={day.date} dayOfWeek={day.dayOfWeek} key={i} conferenceList={day.conferenceList}/>;
