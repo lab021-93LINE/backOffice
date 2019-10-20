@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 .signin-container{
     border: 1px solid black;
-=======
-.container{
->>>>>>> fa8b81153b496303ec734341637ac2119709d866
     text-align: center;
 }
 .signin-containertainer .title{
@@ -13,15 +9,10 @@
 .signin-container .content div{
     margin-top: 10px;
 }
-<<<<<<< HEAD
 .signin-container .content label{
     font-size: 12px;
-=======
-.container .content .error{
-    font-size: 13px;
->>>>>>> fa8b81153b496303ec734341637ac2119709d866
     color: red;
 }
-.signin-form-container div .hidden{
+.signin-form-container .hidden{
     visibility: hidden;
 }
