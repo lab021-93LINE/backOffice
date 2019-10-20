@@ -2,7 +2,7 @@
     border: 1px solid black;
     text-align: center;
 }
-.signin-containertainer .title{
+.signin-container .title{
     font-weight: bold;
     font-size: 34px;
 }
@@ -12,6 +12,10 @@
 .signin-container .content label{
     font-size: 12px;
     color: red;
+}
+.signin-form-container .title{
+    font-weight: bold;
+    font-size: 20px;
 }
 .signin-form-container .hidden{
     visibility: hidden;
