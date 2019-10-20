@@ -1,15 +1,18 @@
-.container{
+.signin-container{
     border: 1px solid black;
     text-align: center;
 }
-.container .title{
+.signin-containertainer .title{
     font-weight: bold;
     font-size: 34px;
 }
-.container .content div{
+.signin-container .content div{
     margin-top: 10px;
 }
-.container .content label{
+.signin-container .content label{
     font-size: 12px;
     color: red;
+}
+.signin-form-container div .hidden{
+    visibility: hidden;
 }
