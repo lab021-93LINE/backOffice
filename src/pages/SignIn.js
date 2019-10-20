@@ -21,6 +21,7 @@ class SignIn extends React.Component{
      * 회원 가입 신청 함수
      */
     onSubmit(){
+
         if(this.state.userId.length === 0)  this.appendLabel('id', 'id를 입력하세요.');
         if(this.state.userPassword.length === 0) this.appendLabel('password', 'password를 입력하세요.');
         if(this.state.userRePassword.length === 0) this.appendLabel('re-password', 'password가 일치하지 않습니다.');
