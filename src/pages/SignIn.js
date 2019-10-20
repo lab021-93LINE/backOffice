@@ -36,8 +36,6 @@ class SignIn extends React.Component {
         console.log('email = ', this.state.userEmail);
         console.log('age = ', this.state.userAge);
 
-
-
     }
 
 
@@ -80,19 +78,20 @@ class SignIn extends React.Component {
         d.appendChild(node);
     }
 
-    onChangeId(id) {
-        this.setState({ 'userId': id });
+    handleChangeId(event) {
+        this.setState({ 'userId': 1 });
+        console.log('id = ',event.target.value);
     }
 
-    onChangePassword(password) {
+    handleChangePassword(password) {
         this.setState({ 'userPassword': password });
     }
 
-    onChangeRePassword(password) {
+    handleChangeRePassword(password) {
         this.setState({ 'userRePassword': password });
     }
 
-    onChangeName(name) {
+    handleChangeName(name) {
         this.setState({ 'userName': name });
     }
 
@@ -100,7 +99,7 @@ class SignIn extends React.Component {
         this.setState({ 'userEmail': email });
     }
 
-    onChangeUserAge(age) {
+    handleChangeUserAge(age) {
         this.setState({ 'userAge': age });
     }
 
@@ -114,6 +113,7 @@ class SignIn extends React.Component {
                     <SignForm
                         formId="ID"
                         title="Id"
+                        handleValue={this.handleChangeId}
                     />
                     <SignForm
                         formId="PASSWORD"

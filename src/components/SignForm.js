@@ -11,10 +11,10 @@ class SignForm extends Component {
          }
     }
 
-    handleValue(e){
-        console.log('vaule = ',e.target.value);
-        // this.setState({value});
-    }
+    // handleValue(e){
+    //     console.log('vaule = ',e.target.value);
+    //     // this.setState({value});
+    // }
 
     componentDidMount(){
         let type = 'text';
@@ -35,7 +35,7 @@ class SignForm extends Component {
         <div className="signin-form-container">
             <div>
                 <span className="title">{this.props.title} : </span>
-                <input type={this.state.type} onChange={e => this.handleValue(e)}/>
+                <input type={this.state.type} onChange={e => this.props.handleValue(e)}/>
                 <label className={this.state.status ? 'hidden' : '' }>{this.state.errorMessage}</label>
             </div>
         </div>
