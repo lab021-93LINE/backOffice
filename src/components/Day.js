@@ -26,8 +26,7 @@ export default class Day extends Component {
         this.setState({cardList: this.createMeetingCardElement('NORMAL')});
     }
 
-    cardClickHandler(conference, index){
-        console.log('conference, index :', conference, index);
+    cardClickHandler(conference, index){        
         this.setState({cardList:this.createMeetingCardElement('UPDATE')})
     }    
 

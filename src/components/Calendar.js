@@ -16,14 +16,12 @@ export default class Calendar extends Component {
         }
     }
 
-    setCurrentWeek(){
-        
-    }
-
+    
     setCurrentWeek() {
         let current = new Date();
         let week = [];        
-        
+                
+        //moment 식으로 변경
         for(let i=1; i<=7 ; i++){
             let first = current.getDate() - current.getDay() + i 
             let day = new Date(current.setDate(first)).toISOString().slice(0, 10);            
@@ -47,44 +45,46 @@ export default class Calendar extends Component {
         this.getMeetingData();        
     }
 
-    getMeetingData(){
+    getMeetingData() {
         let db = firebase.database();
         let reserveRef = db.ref('meetingRoom');
         let deepCopyModel = [];
 
-        //깊은 복사 모델 생성
-        for(let i=0, day; day = this.currentWeek[i]; i++){
-            day.conferenceList = [];     
-            deepCopyModel.push(day);
-        }
-  
-        reserveRef
-        .orderByChild('date')
-        .startAt(this.currentWeek[0].date)
-        .endAt(this.currentWeek[6].date)
-        .on('value',
-        (snapshot) => {
-            let meetingList = Object.values(snapshot.val());            
-            console.log(snapshot.val())
-            for(let i=0; i< meetingList.length; i++){
-                let meeting = meetingList[i];
-                
-                for(let j=0; j < deepCopyModel.length; j++){
-                    let day = deepCopyModel[j];
+        
 
-                    if(day.date === meeting.date){
-                        day.conferenceList.push(meeting);
+        reserveRef
+            .orderByChild('date')
+            .startAt(this.currentWeek[0].date)
+            .endAt(this.currentWeek[6].date)
+            .on('value',
+                (snapshot) => {
+                    //깊은 복사 모델 생성
+                    for (let i = 0, day; day = this.currentWeek[i]; i++) {
+                        day.conferenceList = [];
+                        deepCopyModel.push(day);
                     }
+
+                    if (snapshot.val()) {
+                        console.log('snapshot.val(): ', snapshot.val());
+                        let meetingList = Object.values(snapshot.val());
+
+                        for (let i = 0; i < meetingList.length; i++) {
+                            let meeting = meetingList[i];
+
+                            for (let j = 0; j < deepCopyModel.length; j++) {
+                                let day = deepCopyModel[j];
+                                
+
+                                if (day.date === meeting.date) {
+                                    day.conferenceList.push(meeting);
+                                }
+                            }
+                        }
+
+                    }
+                    this.createCalendarElements(deepCopyModel);
                 }
-            }
-        
-            this.createCalendarElements(deepCopyModel);
-           }
-        );
-        
-        
-        
-        
+            );
     }
     
     
@@ -101,7 +101,7 @@ export default class Calendar extends Component {
             dateEl.push(el);
         }        
 
-        this.setState({dayList: dateEl})
+        this.setState({dayList: dateEl}, console.log('Calender setState Function is Operated!'));
     }
 
     
