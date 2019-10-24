@@ -14,13 +14,17 @@ export default class Calendar extends Component {
         this.state = {
             dayList : []
         }
+
+        //최초 객체 제작
+        this.setCurrentWeek();
+        this.getMeetingData();
     }
 
-    
+
     setCurrentWeek() {
         let current = new Date();
         let week = [];        
-                
+
         //moment 식으로 변경
         for(let i=1; i<=7 ; i++){
             let first = current.getDate() - current.getDay() + i 
@@ -42,22 +46,22 @@ export default class Calendar extends Component {
             week.push(dateObject)
         }        
         this.currentWeek = week;
-        this.getMeetingData();        
+        
     }
-
+    
+        
     getMeetingData() {
         let db = firebase.database();
         let reserveRef = db.ref('meetingRoom');
-        let deepCopyModel = [];
-
         
-
+    
         reserveRef
             .orderByChild('date')
             .startAt(this.currentWeek[0].date)
             .endAt(this.currentWeek[6].date)
             .on('value',
                 (snapshot) => {
+                    let deepCopyModel = [];
                     //깊은 복사 모델 생성
                     for (let i = 0, day; day = this.currentWeek[i]; i++) {
                         day.conferenceList = [];
@@ -82,12 +86,11 @@ export default class Calendar extends Component {
                         }
 
                     }
+
                     this.createCalendarElements(deepCopyModel);
                 }
             );
     }
-    
-    
 
     createCalendarElements(weekInfo){
         let dateEl = [];
@@ -101,13 +104,15 @@ export default class Calendar extends Component {
             dateEl.push(el);
         }        
 
-        this.setState({dayList: dateEl}, console.log('Calender setState Function is Operated!'));
+        this.setState({dayList: dateEl}, console.log('Calender setState Function is Operated!'));        
     }
 
-    
-    componentDidMount(){
-        this.setCurrentWeek();
+    shouldComponentUpdate(nextProps, nextState){
+        console.log('nextProps, nextState: ', nextProps, nextState);
+        return true;
     }
+    
+    
     
     render() {        
         return (

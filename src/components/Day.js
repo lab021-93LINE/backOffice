@@ -6,29 +6,31 @@ let today = new moment();
 export default class Day extends Component {
     constructor(props) {
         super(props)                
-        
-        let date = this.props.date.split('-');
-        this.state = {
+        this.state = this.stateUpdate(this.props);
+    }
+    
+    stateUpdate(props){
+        let date = props.date.split('-');
+        let state = {
             year : date[0],
             month : date[1],
             day : date[2],
-            dayOfWeek: this.props.dayOfWeek,
-            conferenceList : this.props.conferenceList,
+            dayOfWeek: props.dayOfWeek,
+            conferenceList : props.conferenceList,
             isToday : moment().isSame(moment(date, 'YYYY-MM-DD'), 'days'),
-            cardList: []
-        }        
-                
-  
+            cardList: this.createMeetingCardElement(props, 'NORMAL')
+        }
+        
+    
+        return state;
     }
     
-    
-    componentDidMount(){
-        this.setState({cardList: this.createMeetingCardElement('NORMAL')});
+    componentWillReceiveProps(nextProps){
+        
+        this.setState(this.stateUpdate(nextProps));
     }
 
-    cardClickHandler(conference, index){        
-        this.setState({cardList:this.createMeetingCardElement('UPDATE')})
-    }    
+    
 
     updateHandler(){
 
@@ -38,12 +40,11 @@ export default class Day extends Component {
 
     }
 
-    createMeetingCardElement(){
+    createMeetingCardElement(props, status){
         let elList = [];
         
-        for(let i=0; i < this.state.conferenceList.length; i++){
-            let conference = this.state.conferenceList[i];
-            
+        for(let i=0; i < props.conferenceList.length; i++){
+            let conference = props.conferenceList[i];            
             let el =      
                 <Card                  
                 date = {conference.date} 
@@ -52,8 +53,7 @@ export default class Day extends Component {
                 endTime = {conference.endTime} 
                 participants = {conference.participants}
                 key = {i} 
-                updateState = {`false   
-                `}
+                updateState = {false}
                 onClick = {() => this.cardClickHandler(conference, i)}
                 />                 
 
@@ -82,10 +82,15 @@ export default class Day extends Component {
 class Card extends Component {
     constructor(props){
         super(props);
+        
     }
+    cardClickHandler(conference){
+        console.log(`conference `, conference);
+    }    
+
     render() {
         return (
-            <div className={`card-box ${this.props.updateState? 'update': ''}`}  onClick={() => this.props.onClick()}>
+            <div className={`card-box ${this.props.updateState? 'update': ''}`}  onClick={() => {this.cardClickHandler(this.props)}}>
                 <p className="subject" key='subject'>{this.props.subject}</p>
                 <p className="participants" key='participants'>{this.props.participants}</p>
                 <div className="time-box" key='2'>

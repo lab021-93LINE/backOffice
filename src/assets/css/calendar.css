@@ -31,3 +31,12 @@
     background: #dddddd;
     border-radius: 0.3em;
 }
+
+.card-box.update{
+    position: absolute;
+    z-index: 10000;
+    width: 300px;
+    margin-left: -50px;
+    background: #ffffff;
+    border: solid 2px black;
+}
