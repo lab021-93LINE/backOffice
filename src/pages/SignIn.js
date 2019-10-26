@@ -1,5 +1,6 @@
 import React from 'react'
 import SignForm from 'components/SignForm'
+import firebase from 'server/firebase'
 import 'assets/css/signin.css'
 
 class SignIn extends React.Component {
@@ -21,86 +22,80 @@ class SignIn extends React.Component {
      * 회원 가입 신청 함수
      */
     onSubmit() {
-
-        if (this.state.userId.length === 0) this.appendLabel('id', 'id를 입력하세요.');
-        if (this.state.userPassword.length === 0) this.appendLabel('password', 'password를 입력하세요.');
-        if (this.state.userRePassword.length === 0) this.appendLabel('re-password', 'password가 일치하지 않습니다.');
-        if (this.state.userName.length === 0) this.appendLabel('name', 'name을 입력하세요.');
-        if (this.state.userEmail.length === 0) this.appendLabel('email', 'email을 입력해주에요.');
-        if (this.state.age.length === 0) this.appendLabel('age', '나이를 입력하세요.');
-
-        console.log('id = ', this.state.userId);
-        console.log('password = ', this.state.userPassword);
-        console.log('re password = ', this.state.userRePassword);
+        // this.idCheckValidation(this.state.userId);
+        console.log(`id = ${this.state.userId}`);
+        console.log(`password =  ${this.state.userPassword}`);
+        console.log(`re password = ${this.state.userRePassword}`);
         console.log('name = ', this.state.userName);
         console.log('email = ', this.state.userEmail);
         console.log('age = ', this.state.userAge);
 
     }
 
-
     /**
-     * 데이터 타당성 확인
+     * 아이디 중복 체크 함수
      * @param {String} id 
-     * @param {String} range
      */
-    checkVaild(id, range, errorMessage) {
-        const length = document.getElementById(id).childNodes[1].value.length;
-        if (length === 0) {
-            this.appendLabel(id, errorMessage);
-            return;
-        }
+    idDuplicateCheck(id) {
+        let dbUserRef = firebase.database().ref('user/');
+        dbUserRef.orderByChild('id').equalTo(id).on('value', (snapshot) => {
+            console.log('exist = ', snapshot.exists());
+            if (snapshot.exists) return true;
 
-        if (parseInt(range[0]) > length || parseInt(range[1]) < length) {
-            this.appendLabel(id, errorMessage);
-        } else {
-            // 에러 메시지 삭제
-            const parent = document.getElementById(id);
-            parent.removeChild(parent.childNodes[2]);
-        }
+            return false;
+        });
     }
 
     /**
-     * label 태그 추가 함수
+     * 1. id 있는지 확인
+     * 2. 5자리 이상인지 확인
+     * 3. 중복 체크
      * @param {String} id 
-     * @param {String} message 
+     * @return 타당성 체크 결과값 반환
      */
-    appendLabel(id, message) {
+    idCheckValidation(id){
+        let result = true;
+        //글자 수 체크
+        if(id.length < 5) {
+            alert('5자리 이상 입력하세요!');
+            result = false;
+        }
+        
+        //중복 체크 함수 db에서 호출
+        const duplicate = this.idDuplicateCheck(id);
+        if(duplicate) {
+            alert('이미 존재하는 id 입니다.');
+            result = false;
+        }
 
-        // console.log('childElementCount = ',document.getElementById(id).childElementCount);
-        // if(document.getElementById(id).childElementCount > 1) return;
-
-        const d = document.getElementById(id);
-        const node = document.createElement("div");
-        var textnode = document.createTextNode(message);
-        node.classList.add('error');
-        node.appendChild(textnode);
-        d.appendChild(node);
+        return result;
     }
 
-    handleChangeId(event) {
-        this.setState({ 'userId': 1 });
-        console.log('id = ',event.target.value);
+
+    handleChangeId = (e) => {
+        console.log('this = ',this);
+        this.setState({ 'userId': e.target.value });
+        console.log('userId = ',this.state.userId);
     }
 
-    handleChangePassword(password) {
-        this.setState({ 'userPassword': password });
+    handleChangePassword = (e) => {
+        this.setState({ 'userPassword': e.target.value });
     }
 
-    handleChangeRePassword(password) {
-        this.setState({ 'userRePassword': password });
+    handleChangeRePassword = (e) => {
+        this.setState({ 'userRePassword': e.target.value });
     }
 
-    handleChangeName(name) {
-        this.setState({ 'userName': name });
+    handleChangeName = (e) => {
+        this.setState({ 'userName': e.target.value });
     }
 
-    onChangeUserEmail(email) {
-        this.setState({ 'userEmail': email });
+    handleChangeUserEmail = (e) => {
+        this.setState({ 'userEmail': e.target.value });
     }
 
-    handleChangeUserAge(age) {
-        this.setState({ 'userAge': age });
+    handleChangeUserAge = (e) => {
+        this.setState({ 'userAge': e.target.value });
     }
 
 
@@ -118,34 +113,28 @@ class SignIn extends React.Component {
                     <SignForm
                         formId="PASSWORD"
                         title="Password"
+                        handleValue={this.handleChangePassword}
                     />
                     <SignForm
                         formId="RE-PASSRORD"
                         title="Re Password"
+                        handleValue={this.handleChangeRePassword}
                     />
                     <SignForm
                         formId="NAME"
                         title="Name"
+                        handleValue={this.handleChangeName}
                     />
                     <SignForm
                         formId="EMAIL"
                         title="Email"
+                        handleValue={this.handleChangeUserEmail}
                     />
                     <SignForm
                         formId="AGE"
                         title="Age"
+                        handleValue={this.handleChangeUserAge}
                     />
-                    {/* <div id="id">*ID : <input type="text" placeholder="ID" onChange={(e) => this.onChangeId(e.target.value)} 
-                    onBlur={() => this.checkVaild('id', [1,6], '0~6자리 내로 입력해주세요.')}/></div>
-                    <div id="password">*PASSWORD : <input type="text" placeholder="PASSWORD" onChange={(e) => this.onChangePassword(e.target.value)}
-                    onBlur={() => this.checkVaild('password', [1,4], '0~4자리 내로 입력해주세요.')}/></div>
-                    <div id="re-password">*RE PASSWORD : <input type="text" placeholder="RE PASSWORD" onChange={(e) => this.onChangeRePassword(e.target.value)}
-                    onBlur={() => this.checkVaild('re-password', [], '입력하신 password와 일치하지 않습니다.')}/></div>
-                    <div id="user-name">*NAME : <input type="text" placeholder="NAME" onChange={(e) => this.onChangeName(e.target.value)}
-                    onBlur={() => this.checkVaild('user-name', [], '이름을 입력해주세요.')}/></div>
-                    <div id="user-email">*EMAIL : <input type="email" placeholder="EMAIL" onChange={(e) => this.onChangeUserEmail(e.target.value)}
-                    onBlur={() => this.checkVaild('user-email', [], '이메일 형식이 아닙니다.')}/></div>
-                    <div id="user-age">AGE : <input type="text" placeholder="AGE" onChange={(e) => this.onChangeUserAge(e.target.value)}/></div> */}
                 </div>
                 <input type="checkbox" /> 개인 정보 수집에 동의하시겠습니까?<br />
                 <button onClick={() => this.onSubmit()}>가입</button>

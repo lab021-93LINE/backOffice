@@ -35,7 +35,7 @@ class SignForm extends Component {
         <div className="signin-form-container">
             <div>
                 <span className="title">{this.props.title} : </span>
-                <input type={this.state.type} onChange={e => this.props.handleValue(e)}/>
+                <input type={this.state.type} onChange={this.props.handleValue}/>
                 <label className={this.state.status ? 'hidden' : '' }>{this.state.errorMessage}</label>
             </div>
         </div>
