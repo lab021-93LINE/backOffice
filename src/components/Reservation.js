@@ -48,8 +48,7 @@ class Reservation extends Component {
         this.createMonthTooltip()
     }
 
-    datePickerHandler = (momentDate, dateString) => {
-        console.log(this);        
+    datePickerHandler = (momentDate, dateString) => {        
         this.setState({date: dateString});
     }
     beginTimePickerHandler = (momentDate, dateString) => {
